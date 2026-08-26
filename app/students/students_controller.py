@@ -28,8 +28,13 @@ def update(student_id: str, body: UpdateStudentDto) -> Student:
 
 
 @router.delete("/{student_id}")
-def delete(student_id: str) -> Student:
+def delete(student_id: str):
     deleted = students_service.delete(student_id)
     pets_service.delete_all_for_student(student_id)
 
-    return deleted
+    return {
+        "success": True,
+        "message": "Estudiante eliminado correctamente",
+        "data": deleted,
+        "error": None
+    }
