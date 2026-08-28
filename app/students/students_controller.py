@@ -1,4 +1,5 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
+from fastapi.responses import JSONResponse
 
 from app.pets.pets_service import pets_service
 from app.students.students_schemas import CreateStudentDto, Student, UpdateStudentDto
@@ -17,10 +18,27 @@ def find_by_id(student_id: str) -> Student:
     return students_service.find_by_id(student_id)
 
 
-@router.post("", status_code=201)
-def create(body: CreateStudentDto) -> Student:
-    return students_service.create(body)
+from fastapi import APIRouter
 
+from app.pets.pets_service import pets_service
+from app.students.students_schemas import CreateStudentDto, Student, UpdateStudentDto
+from app.students.students_service import students_service
+
+router = APIRouter(prefix="/api/students", tags=["Students"])
+
+
+@router.post("", status_code=201)
+def create(body: CreateStudentDto):
+
+    nuevo_estudiante = students_service.create(body)
+
+    return {
+        "success": True,
+        "message": "ESTUDIANTE_CREADO_CORRECTAMENTE",
+        "data": nuevo_estudiante,
+        "error": None,
+        "statusCode": 201
+    }
 
 @router.patch("/{student_id}")
 def update(student_id: str, body: UpdateStudentDto) -> Student:
