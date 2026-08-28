@@ -8,13 +8,27 @@ router = APIRouter(prefix="/api/students", tags=["Students"])
 
 
 @router.get("")
-def find_all() -> list[Student]:
-    return students_service.find_all()
+def find_all() -> dict:
+    students = students_service.find_all()
+    return {
+        "success": True,
+        "message": "ESTUDIANTES_LISTADOS_EXITOSAMENTE",
+        "data": students,
+        "error": None,
+        "statusCode": 200
+    }
 
 
 @router.get("/{student_id}")
-def find_by_id(student_id: str) -> Student:
-    return students_service.find_by_id(student_id)
+def find_by_id(student_id: str) -> dict:
+    student = students_service.find_by_id(student_id)
+    return {
+        "success": True,
+        "message": "ESTUDIANTE_ENCONTRADO_EXITOSAMENTE",
+        "data": student,
+        "error": None,
+        "statusCode": 200
+    }
 
 
 @router.post("", status_code=201)
