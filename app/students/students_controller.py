@@ -36,5 +36,6 @@ def delete(student_id: str):
         "success": True,
         "message": "Estudiante eliminado correctamente",
         "data": deleted,
-        "error": None
+        "error": None,
+        "statusCode": 200
     }
