@@ -15,13 +15,31 @@ def find_all(studentId: str) -> list[Pet]:
 
 
 @router.post("", status_code=201)
-def create(studentId: str, body: CreatePetDto) -> Pet:
-    return pets_service.create(studentId, body)
+def create(studentId: str, body: CreatePetDto):
+    created = pets_service.create(studentId, body)
+
+    return {
+        "success": True,
+        "message": "Mascota creada correctamente",
+        "data": created,
+        "error": None,
+        "statusCode": 201
+    }
 
 
 @router.patch("/{petId}")
-def update(studentId: str, petId: str, body: UpdatePetDto) -> Pet:
-    return pets_service.update(studentId, petId, body)
+def update(studentId: str, petId: str, body: UpdatePetDto):
+    updated = pets_service.update(studentId, petId, body)
+
+    return {
+        "success": True,
+        "Message": "Mascota actualizada correctamente",
+        "data": updated,
+        "error": None,
+        "statusCode": 200
+    }
+
+
 
 
 @router.delete("/{petId}")
