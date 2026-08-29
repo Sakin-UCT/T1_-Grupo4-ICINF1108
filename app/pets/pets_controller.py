@@ -43,5 +43,13 @@ def update(studentId: str, petId: str, body: UpdatePetDto):
 
 
 @router.delete("/{petId}")
-def delete(studentId: str, petId: str) -> Pet:
-    return pets_service.delete(studentId, petId)
+def delete(studentId: str, petId: str):
+    deleted = pets_service.delete(studentId, petId)
+
+    return {
+        "success": True,
+        "message": "Mascota eliminada correctamente",
+        "data": deleted,
+        "error": None,
+        "statusCode": 200
+    }
