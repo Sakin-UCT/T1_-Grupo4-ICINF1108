@@ -23,8 +23,15 @@ def create(body: CreateStudentDto) -> Student:
 
 
 @router.patch("/{student_id}")
-def update(student_id: str, body: UpdateStudentDto) -> Student:
-    return students_service.update(student_id, body)
+def update(student_id: str, body: UpdateStudentDto) -> dict:
+    updated_student = students_service.update(student_id, body)
+    return {
+        "success": True,
+        "message": "ESTUDIANTE_ACTUALIZADO_EXITOSAMENTE",
+        "data": updated_student,
+        "error": None,
+        "statusCode": 200
+    }
 
 
 @router.delete("/{student_id}")
