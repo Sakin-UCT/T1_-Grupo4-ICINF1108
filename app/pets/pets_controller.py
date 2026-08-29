@@ -9,9 +9,16 @@ router = APIRouter(
 )
 
 
-@router.get("")
-def find_all(studentId: str) -> list[Pet]:
-    return pets_service.find_all_for_student(studentId)
+@router.get("/{student_id}/pets")
+def list_pets(student_id: str) -> dict:
+    pets = pets_service.list_by_student(student_id)
+    return {
+        "success": True,
+        "message": "MASCOTAS_OBTENIDAS_EXITOSAMENTE",
+        "data": pets,
+        "error": None,
+        "statusCode": 200
+    }
 
 
 @router.post("", status_code=201)
@@ -53,3 +60,4 @@ def delete(studentId: str, petId: str):
         "error": None,
         "statusCode": 200
     }
+
