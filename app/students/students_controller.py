@@ -18,15 +18,6 @@ def find_by_id(student_id: str) -> Student:
     return students_service.find_by_id(student_id)
 
 
-from fastapi import APIRouter
-
-from app.pets.pets_service import pets_service
-from app.students.students_schemas import CreateStudentDto, Student, UpdateStudentDto
-from app.students.students_service import students_service
-
-router = APIRouter(prefix="/api/students", tags=["Students"])
-
-
 @router.post("", status_code=201)
 def create(body: CreateStudentDto):
 
